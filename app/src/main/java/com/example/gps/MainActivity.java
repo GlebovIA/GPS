@@ -3,11 +3,15 @@ package com.example.gps;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,6 +27,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         tvResult = findViewById(R.id.tvResult);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+    }
+
+    public Boolean GetPermissionGPS(){
+        ACCESS_FINE_LOCATION = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        ACCESS_COARSE_LOCATION = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        return ACCESS_FINE_LOCATION == PackageManager.PERMISSION_GRANTED || ACCESS_COARSE_LOCATION == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public  void OnGetGPS(View view){
+        if(GetPermissionGPS() == false){
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
     }
 
     LocationListener _LocationListener = new LocationListener() {

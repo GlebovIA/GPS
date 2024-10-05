@@ -1,5 +1,6 @@
 package com.example.gps;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,8 +19,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         tvResult = findViewById(R.id.tvResult);
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
     }
 
     LocationListener _LocationListener = new LocationListener() {
